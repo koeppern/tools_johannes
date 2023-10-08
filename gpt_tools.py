@@ -12,8 +12,22 @@ def gpt_quick_response(message, system_message="", model="gpt-3.5-turbo", temper
 
     messages = [
         {"role": "system", "content":system_message},
-        {"role": "user", "content": message}
     ]
+
+    if isinstance(message, str):
+        messages.append(
+            {"role": "user", "content": message}
+        )        
+    elif isinstance(message, list):
+        for message in message:
+            messages.append(
+                {"role": "user", "content": message}
+            )  
+    else:
+        messages = []
+        
+        print("message is neither a string nor a list")
+
 
     if len(system_message) == 0:
         messages.pop(0)
